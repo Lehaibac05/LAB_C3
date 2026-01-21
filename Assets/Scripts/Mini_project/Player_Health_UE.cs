@@ -1,7 +1,7 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.Events;
 
-public class PlayerHealthUnityEvent : MonoBehaviour
+public class Player_Health_UE : MonoBehaviour
 {
     public int maxHealth = 100;
     public int currentHealth;

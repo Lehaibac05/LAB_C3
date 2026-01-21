@@ -1,23 +1,32 @@
-﻿using UnityEngine;
-using System;
+﻿using System;
+using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
-    public int health = 100;
+    public int maxHealth = 100;
+    public int currentHealth;
 
-    // Khai báo sự kiện
     public event Action<int> OnHealthChanged;
+    public event Action OnDeath;
 
-    void Update()
+    void Start()
     {
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            health -= 10;
-            Debug.Log("Player mất máu: " + health);
-
-            // Phát sự kiện (nếu có người nghe)
-            OnHealthChanged?.Invoke(health);
-        }
+        currentHealth = maxHealth;
+        OnHealthChanged?.Invoke(currentHealth);
     }
 
+    public void TakeDamage(int damage)
+    {
+        if (currentHealth <= 0) return;
+
+        currentHealth -= damage;
+        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+
+        OnHealthChanged?.Invoke(currentHealth);
+
+        if (currentHealth == 0)
+        {
+            OnDeath?.Invoke();
+        }
+    }
 }

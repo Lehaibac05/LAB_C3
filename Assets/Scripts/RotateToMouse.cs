@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using TMPro;
 
 public class RotateToMouse : MonoBehaviour
@@ -7,8 +7,11 @@ public class RotateToMouse : MonoBehaviour
 
     void Update()
     {
+        Vector3 mousePos = Input.mousePosition;
+        mousePos.z = 10f; // khoảng cách từ camera tới object
+
         Vector3 mouseWorld =
-            Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Camera.main.ScreenToWorldPoint(mousePos);
 
         Vector2 direction =
             mouseWorld - transform.position;
@@ -20,6 +23,7 @@ public class RotateToMouse : MonoBehaviour
             Quaternion.Euler(0, 0, angle);
 
         angleText.text =
-            "Angle: " + angle.ToString("F1") + "�";
+            "Angle: " + angle.ToString("F1") + "°";
     }
+
 }
